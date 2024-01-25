@@ -71,3 +71,24 @@ scoring = 'accuracy'
 #Árvores de Classificação (Decision Tree) e Regressão (CART).
 #Gaussian Naive Bayes (NB).
 #Support Vector Machines (SVM).
+
+models = []    #lista que irá armazenar diferentes modelos de aprendizagem de máquina
+
+models.append(('LR', LogisticRegression(solver='liblinear', multi_class='ovr')))
+# LR = Logistics Regression (modelo), configurado com o solver 'liblinear' e abordagem ovr(one vs rest).
+models.append(('LDA', LinearDiscriminantAnalysis()))
+models.append(('KNN', KNeighborsClassifier()))
+models.append(('CART', DecisionTreeClassifier()))
+models.append(('NB', GaussianNB()))
+models.append(('SVM', SVC(gamma='auto')))
+
+results = []    #lista de resultados
+names = []
+
+for name, model in models:
+   kfold = model_selection.KFold(n_splits=10, random_state=seed)
+   cv_results = model_selection.cross_val_score(model, X_train, Y_train, cv=kfold, scoring=scoring)
+   results.append(cv_results)
+   names.append(name)
+   msg = "%s: %f (%f)" % (name, cv_results.mean(), cv_results.std())
+   print(msg)
