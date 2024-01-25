@@ -92,3 +92,20 @@ for name, model in models:
    names.append(name)
    msg = "%s: %f (%f)" % (name, cv_results.mean(), cv_results.std())
    print(msg)
+
+#model_selection.KFold(n_splits=10, random_state=seed): Define a estratégia de validação cruzada com 10 folds (ou partições) usando a classe KFold do módulo model_selection.
+#model_selection.cross_val_score(model, X_train, Y_train, cv=kfold, scoring=scoring): Realiza a validação cruzada para o modelo atual (model) usando os dados de treinamento (X_train e Y_train). cv=kfold especifica a estratégia de validação cruzada a ser usada e scoring=scoring define a métrica de avaliação a ser utilizada.
+#results.append(cv_results): Adiciona os resultados da validação cruzada para o modelo atual à lista results.
+#names.append(name): Adiciona o nome do modelo à lista names.
+#msg = "%s: %f (%f)" % (name, cv_results.mean(), cv_results.std()): Formata uma mensagem contendo o nome do modelo, a média e o desvio padrão dos resultados da validação cruzada.
+
+
+#adicionando gráficos dos resultados da avaliação do modelo e comparar o spread e a accuracy média de cada modelo
+
+fig = plt.figure()
+fig.suptitle('Algorithm Comparison')
+ax = fig.add_subplot(111)
+plt.boxplot(results)
+ax.set_xticklabels(names)
+plt.show()
+
