@@ -17,6 +17,14 @@ df = df.rename(columns=colunas)
 colunas_selecionadas = ['TimeStamp', 'Fechamento', 'Volume']
 df_formatado = df[colunas_selecionadas]
 
-print(df_formatado)
+#formatando datas
+df_formatado['TimeStamp'] = pd.to_datetime(df_formatado['TimeStamp'])
+df_formatado['TimeStamp'] = df_formatado['TimeStamp'].dt.strftime('%Y-%m-%d')
+
+max_fechamento = df_formatado['Fechamento'].idxmax()
+row_max_fechamento = df_formatado.loc[max_fechamento]
+
+#linha com data em que atingiu o valor máximo no período filtrado
+print(row_max_fechamento)
 
 
